@@ -34,15 +34,7 @@ export default function Textbox(props) {
   }
 
   const handleCopy = () => {
-    // Get the text field
-    let copyText = document.getElementById("mybox");
-
-    // Select the text field
-    copyText.select();
-    // copyText.setSelectionRange(0, 99999); // For mobile devices
-
-    // Copy the text inside the text field
-    navigator.clipboard.writeText(copyText.value);
+    navigator.clipboard.writeText(text);
     props.showAlert("Text copied to clipboard", "success")
   }
 
@@ -59,19 +51,19 @@ export default function Textbox(props) {
         <div className="mb-3">
         <textarea className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : '#454549', color: props.mode === 'light' ? 'black' : 'white'}} value={text} onChange={handleOnchange} id="mybox" rows="8"></textarea>
         </div>
-        <button className="btn btn-primary mx-1" onClick={handleUpClick} >Convert to Upper Case</button>
-        <button className="btn btn-primary mx-1" onClick={handleLoClick} >Convert to Lower Case</button>
-        <button className="btn btn-primary mx-1" onClick={handleClearClick} >Clear Text</button>
-        <button className="btn btn-primary mx-1" onClick={handleCopy} >Copy Text</button>
-        <button className="btn btn-primary mx-1" onClick={handleClearSpace} >Clear Extra Space</button>
-        <button className="btn btn-primary mx-1" onClick={handleFirstCapital} >Convert Capital Letter to all words</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1" onClick={handleUpClick} >Convert to Upper Case</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1" onClick={handleLoClick} >Convert to Lower Case</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1" onClick={handleClearClick} >Clear Text</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1" onClick={handleCopy} >Copy Text</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1" onClick={handleClearSpace} >Clear Extra Space</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1" onClick={handleFirstCapital} >Convert Capital Letter to all words</button>
     </div>
     <div className="container my-3" style={{ color: props.mode === 'light' ? 'black' : 'white'}}>
       <h2>Your Text Summary</h2>
-      <p>{text.split(" ").length} words and {text.length} characters</p>
-      <p>{0.008 * text.split(" ").length} minutes to read</p>
+      <p>{text.split(/\s+/).filter(e => {return e.length!==0}).length} words and {text.length} characters</p>
+      <p>{0.008 * text.split(/\s+/).filter(e => {return e.length!==0}).length} minutes to read</p>
       <h2>Preview : </h2>
-      <p>{text.length > 0 ? text : "Please Enter something to analyse"}</p>
+      <p>{text.length > 0 ? text : "Nothing to Preview"}</p>
     </div>
     </>
   )

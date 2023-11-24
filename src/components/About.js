@@ -1,34 +1,40 @@
-import React, {useState} from 'react'
+import React from 'react'
 
-export default function About() {
+export default function About(props) {
 
-    const [myStyle, setMyStyle] = useState({
-        color: 'white',
-        backgroundColor: 'black',
-        border: '1px solid red'
-    })
+    // const [myStyle, setMyStyle] = useState({
+    //     color: 'white',
+    //     backgroundColor: 'black',
+    //     border: '1px solid red'
+    // })
 
-    const [btnText, setBtnText] = useState('Disable dark mode')
+    // const [btnText, setBtnText] = useState('Disable dark mode')
 
-    const toggleStyle = () => {
-        if(myStyle.color === 'white')
-        {
-            setMyStyle({
-                color: 'black',
-                backgroundColor: 'white'
-            })
+    // const toggleStyle = () => {
+    //     if(myStyle.color === 'white')
+    //     {
+    //         setMyStyle({
+    //             color: 'black',
+    //             backgroundColor: 'white'
+    //         })
 
-            setBtnText('Enable dark mode')
-        }
-        else{
-            setMyStyle({
-                color: 'white',
-                backgroundColor: 'black',
-                border: '1px solid red'
-            })
+    //         setBtnText('Enable dark mode')
+    //     }
+    //     else{
+    //         setMyStyle({
+    //             color: 'white',
+    //             backgroundColor: 'black',
+    //             border: '1px solid red'
+    //         })
 
-            setBtnText('Disable dark mode')
-        }
+    //         setBtnText('Disable dark mode')
+    //     }
+    // }
+
+    let myStyle = {
+        color: props.mode === 'light' ? 'black' : 'white',
+        backgroundColor: props.mode === 'light' ? 'white' : 'black',
+        border: props.mode === 'dark' ? '1px solid red' : ''
     }
 
   return (
@@ -72,7 +78,7 @@ export default function About() {
         </div>
     </div>
     </div>
-    <button className="btn btn-primary my-3" onClick={toggleStyle}>{btnText}</button>
+    {/* <button className="btn btn-primary my-3" onClick={toggleStyle}>{btnText}</button> */}
     </div>
   )
 }
